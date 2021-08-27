@@ -118,12 +118,6 @@ public class SetupWizardUtils {
         return packageManager.hasSystemFeature(PackageManager.FEATURE_TELEPHONY);
     }
 
-    public static boolean isMultiSimDevice(Context context) {
-        TelephonyManager tm =
-                (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-        return tm.isMultiSimEnabled();
-    }
-
     public static boolean isRadioReady(Context context, ServiceState state) {
         final SetupWizardApp setupWizardApp = (SetupWizardApp)context.getApplicationContext();
         if (setupWizardApp.isRadioReady()) {
@@ -258,6 +252,10 @@ public class SetupWizardUtils {
         return PhoneMonitor.getInstance().simMissing();
     }
 
+    public static boolean isMultiSimDevice() {
+        return PhoneMonitor.getInstance().isMultiSimDevice();
+    }
+
     public static void disableComponentsForMissingFeatures(Context context) {
         if (!hasLeanback(context)) {
             disableComponent(context, BluetoothSetupActivity.class);
@@ -272,7 +270,7 @@ public class SetupWizardUtils {
         } else if (!simMissing()) {
             disableComponent(context, SimMissingActivity.class);
         }
-        if (!SetupWizardUtils.isMultiSimDevice(context)) {
+        if (!isMultiSimDevice()) {
             disableComponent(context, ChooseDataSimActivity.class);
         }
         if (!SetupWizardUtils.hasWifi(context) ||
