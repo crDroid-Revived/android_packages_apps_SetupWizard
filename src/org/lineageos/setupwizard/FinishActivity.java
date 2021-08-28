@@ -40,6 +40,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 
+import com.google.android.setupcompat.util.SystemBarHelper;
 import com.google.android.setupcompat.util.WizardManagerHelper;
 
 import org.lineageos.setupwizard.util.EnableAccessibilityController;
@@ -109,7 +110,7 @@ public class FinishActivity extends BaseSetupWizardActivity {
         sendBroadcastAsUser(i, getCallingUserHandle(), FINISH_SETUP);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        hideNextButton();
+        SystemBarHelper.hideSystemBars(getWindow());
         finishSetup();
     }
 
